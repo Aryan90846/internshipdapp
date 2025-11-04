@@ -1,73 +1,201 @@
-# Welcome to your Lovable project
+# Aryan Certificate Portal
 
-## Project info
+A production-ready decentralized application for issuing and verifying internship certificates as NFTs on the blockchain.
 
-**URL**: https://lovable.dev/projects/82371fb5-afcf-4dcf-8c34-26ce4775bf86
+## 🎯 Features
 
-## How can I edit this code?
+- **Blockchain-Verified**: Issue tamper-proof certificates as ERC-721 NFTs
+- **Role-Based Access**: Admin and issuer roles with granular permissions
+- **Batch Minting**: Upload CSV to mint multiple certificates
+- **Public Verification**: Anyone can verify certificate authenticity
+- **QR Codes**: Each certificate includes a QR code for easy verification
+- **Beautiful UI**: Modern, responsive design with glassmorphism
+- **Testnet Ready**: Deploy to Polygon Amoy or Base Sepolia
 
-There are several ways of editing your application.
+## 🏗️ Tech Stack
 
-**Use Lovable**
+### Smart Contracts
+- Solidity ^0.8.20
+- Hardhat
+- OpenZeppelin Contracts
+- ERC-721 Standard
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/82371fb5-afcf-4dcf-8c34-26ce4775bf86) and start prompting.
+### Frontend
+- React + TypeScript
+- Vite
+- Wagmi + RainbowKit (Web3 integration)
+- TailwindCSS
+- shadcn/ui components
 
-Changes made via Lovable will be committed automatically to this repo.
+### Blockchain
+- Polygon Amoy Testnet (primary)
+- Base Sepolia Testnet (fallback)
 
-**Use your preferred IDE**
+## 📦 Project Structure
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+```
+aryan-certificate-portal/
+├── contracts/                 # Smart contracts & deployment
+│   ├── InternCertificateNFT.sol
+│   ├── hardhat.config.js
+│   ├── scripts/deploy.js
+│   └── test/
+├── src/
+│   ├── components/           # React components
+│   │   ├── admin/           # Admin dashboard components
+│   │   ├── verify/          # Verification components
+│   │   └── ui/              # Reusable UI components
+│   ├── config/              # Configuration files
+│   ├── lib/                 # Utility functions
+│   ├── pages/               # Page components
+│   └── types/               # TypeScript types
+└── public/                  # Static assets
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚀 Quick Start
 
-Follow these steps:
+### Prerequisites
+- Node.js v18+
+- npm or yarn
+- MetaMask or compatible Web3 wallet
+- Testnet tokens (Polygon MATIC or Base ETH)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+### 1. Clone & Install
+```bash
 git clone <YOUR_GIT_URL>
+cd aryan-certificate-portal
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 2. Deploy Smart Contract
+```bash
+cd contracts
+npm install
+cp .env.example .env
+# Edit .env with your private key
+npm run compile
+npm run test
+npm run deploy:amoy  # or deploy:base
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 3. Configure Frontend
+Update `src/config/web3.ts` with:
+- Deployed contract address
+- WalletConnect Project ID
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 4. Run Development Server
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Visit http://localhost:8080
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📖 Documentation
 
-**Use GitHub Codespaces**
+For complete deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🔑 Key Contracts
 
-## What technologies are used for this project?
+### InternCertificateNFT
+Main certificate contract with features:
+- Mint single/batch certificates
+- Revoke certificates
+- Verify authenticity
+- Role-based permissions
+- Metadata hash verification
 
-This project is built with:
+## 🌐 Network Info
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Polygon Amoy Testnet
+- RPC: https://rpc-amoy.polygon.technology
+- Chain ID: 80002
+- Explorer: https://amoy.polygonscan.com
+- Faucet: https://faucet.polygon.technology/
 
-## How can I deploy this project?
+### Base Sepolia Testnet
+- RPC: https://sepolia.base.org
+- Chain ID: 84532
+- Explorer: https://sepolia.basescan.org
+- Faucet: https://www.alchemy.com/faucets/base-sepolia
 
-Simply open [Lovable](https://lovable.dev/projects/82371fb5-afcf-4dcf-8c34-26ce4775bf86) and click on Share -> Publish.
+## 👨‍💼 Admin Access
 
-## Can I connect a custom domain to my Lovable project?
+**Admin Wallet:** `0xbE27dFb76bdb342313B13357252A42a4CA34431d`
 
-Yes, you can!
+This wallet has full admin and issuer permissions.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🎨 UI Components
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Landing page with features
+- Admin dashboard (wallet-gated)
+- Single certificate minting
+- Batch CSV upload
+- Certificate management
+- Public verification portal
+
+## 🔒 Security
+
+- Role-based access control
+- Metadata hash verification
+- Prevention of revoked certificate transfers
+- No SQL injection (pure smart contract)
+- Testnet deployment for safety
+
+## 📝 Certificate Metadata
+
+```json
+{
+  "name": "Internship Certificate — <name>",
+  "description": "<name> successfully completed...",
+  "image": "<IPFS or data URL>",
+  "attributes": [
+    {"trait_type": "name", "value": "..."},
+    {"trait_type": "wallet", "value": "0x..."},
+    {"trait_type": "program", "value": "..."},
+    {"trait_type": "issue_date", "value": "..."},
+    {"trait_type": "certificate_id", "value": "..."}
+  ],
+  "metadata_hash": "0x..."
+}
+```
+
+## 🧪 Testing
+
+```bash
+cd contracts
+npm test
+```
+
+Tests cover:
+- Deployment
+- Minting (single & batch)
+- Revocation
+- Verification
+- Access control
+
+## 📄 License
+
+MIT
+
+## 🤝 Contributing
+
+This is a production-ready template. Feel free to fork and customize!
+
+## 🆘 Support
+
+For issues or questions:
+1. Check [DEPLOYMENT.md](./DEPLOYMENT.md)
+2. View contract on block explorer
+3. Check MetaMask network settings
+
+## 🎉 Credits
+
+**Aryan Web3 Labs**  
+Building the future of verifiable credentials.
+
+---
+
+**Live Demo:** Coming soon after deployment!  
+**Contract Address:** Update after deployment  
+**Admin Dashboard:** `/admin`  
+**Verification Portal:** `/verify`
